@@ -850,9 +850,9 @@ function handleMqttMessage(topic, payload) {
     box.status = hasmed ? 'has' : 'empty';
     box.updatedAt = fmtTime();
 
-    // Lưu trạng thái lên Firebase /boxes/boxN
+    // Lưu trạng thái lên Firebase theo đúng nhánh tài khoản
     const boxKey = `box${box.id}`;
-    set(ref(db, `boxes/${boxKey}`), {
+    set(ref(db, `accounts/${currentAccount}/boxes/${boxKey}`), {
       status: box.status,
       updatedAt: new Date().toISOString(),
     }).catch(err => console.warn('Firebase box update error:', err));
